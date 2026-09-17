@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IPTU Guia — custos por cidade do litoral | Praia Digital</title>
+<meta name="description" content="Compare IPTU estimado, ITBI e taxas municipais entre as cidades do litoral paulista antes de comprar seu imóvel.">
+<link rel="canonical" href="https://praia.digital/iptu-guia/">
+<meta name="robots" content="index, follow">
+<style>
+:root{font-family:system-ui,-apple-system,sans-serif}
+body{margin:0;background:#0c4a6e;color:#e0f2fe;min-height:100vh}
+.wrap{max-width:720px;margin:0 auto;padding:40px 20px}
+.card{background:#075985;border:1px solid #0284c7;border-radius:16px;padding:24px;margin-top:20px}
+input,select{width:100%;padding:10px;border-radius:10px;border:1px solid #38bdf8;background:#0c4a6e;color:#e0f2fe;margin-top:6px;box-sizing:border-box}
+button{background:#38bdf8;color:#082f49;border:0;padding:12px 18px;border-radius:12px;font-weight:700;cursor:pointer;margin-top:14px}
+label{font-size:14px;font-weight:600;margin-top:10px;display:block}
+table{width:100%;border-collapse:collapse;margin-top:12px;font-size:14px}
+td,th{padding:8px;border-bottom:1px solid #0369a1;text-align:left}
+.btn{display:inline-block;margin-top:16px;padding:12px 18px;border-radius:12px;background:#f59e0b;color:#451a03;text-decoration:none;font-weight:700}
+small{opacity:.7}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>🏙️ IPTU Guia</h1>
+  <p>IPTU, ITBI e custos municipais lado a lado — descubra a cidade mais barata para o seu imóvel.</p>
+  <div class="card">
+    <label>Valor venal do imóvel (R$)</label><input id="v" type="number" value="500000">
+    <button onclick="calc()">Comparar cidades</button>
+    <div id="tab"></div>
+  </div>
+  <small>Alíquotas estimadas de referência — confirme no site da prefeitura de cada cidade.</small><br>
+  <a class="btn" href="https://praiadigital.github.io/comparador-cidades/">Comparador de Cidades</a>
+  <a class="btn" href="https://praiadigital.github.io/calculadoras/">Calculadoras</a>
+  <a class="btn" href="https://praiadigital.github.io/simulador-credito/">Simulador de Crédito</a>
+</div>
+<script>
+const C={
+ 'Santos':{iptu:0.8,itbi:3},'Guarujá':{iptu:0.6,itbi:3},'Praia Grande':{iptu:0.5,itbi:2},
+ 'São Vicente':{iptu:0.5,itbi:2},'Bertioga':{iptu:0.4,itbi:2},'Mongaguá':{iptu:0.4,itbi:2},
+ 'Itanhaém':{iptu:0.35,itbi:2},'Peruíbe':{iptu:0.3,itbi:2}
+};
+function fmt(v){return v.toLocaleString('pt-BR',{style:'currency',currency:'BRL',maximumFractionDigits:0});}
+function calc(){
+  const v=+document.getElementById('v').value||0;
+  const rows=Object.entries(C).map(([c,t])=>({c,iptu:v*t.iptu/100,itbi:v*t.itbi/100})).sort((a,b)=>a.iptu-b.iptu);
+  document.getElementById('tab').innerHTML='<table><tr><th>Cidade</th><th>IPTU/ano</th><th>ITBI (compra)</th></tr>'+
+  rows.map((r,i)=>'<tr><td>'+(i===0?'💰 ':'')+r.c+'</td><td>'+fmt(r.iptu)+'</td><td>'+fmt(r.itbi)+'</td></tr>').join('')+'</table>';
+}
+calc();
+</script>
+<hr style="margin:40px 0 20px;border:none;border-top:1px solid #0284c7">
+<nav style="font-size:.95em;text-align:center;padding:0 16px 32px;color:#7dd3fc">
+<strong>Rede Praia Digital:</strong><br>
+<a style="color:#7dd3fc" href="https://praia.digital/">Praia Digital</a> ·
+<a style="color:#7dd3fc" href="https://praiadigital.github.io/apps/">Todos os apps</a> ·
+<a style="color:#7dd3fc" href="https://praiadigital.github.io/comparador-cidades/">Comparador de Cidades</a> ·
+<a style="color:#7dd3fc" href="https://praiadigital.github.io/calculadoras/">Calculadoras</a> ·
+<a style="color:#7dd3fc" href="https://praiadigital.github.io/simulador-credito/">Simulador de Crédito</a> ·
+<a style="color:#7dd3fc" href="https://praiadigital.github.io/simulador-roi/">Simulador ROI</a> ·
+<a style="color:#7dd3fc" href="https://praiadigital.github.io/guia-litoral/">Guia do Litoral</a> ·
+<a style="color:#7dd3fc" href="https://praiadigital.github.io/guia-praias/">Guia de Praias</a>
+</nav>
+</body>
+</html>
